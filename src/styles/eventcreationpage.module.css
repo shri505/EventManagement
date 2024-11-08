@@ -1,0 +1,55 @@
+.formContainer {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.inputField, .textareaField, .selectField {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.submitButton {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.submitButton:hover {
+  background-color: #45a049;
+}
+.eventCard {
+  background-color: #f0f0f0;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.rsvpButton, .checkInButton, .checkOutButton, .notifyButton {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.rsvpButton {
+  background-color: #007BFF;
+}
+.checkInButton {
+  background-color: #28a745;
+}
+.checkOutButton {
+  background-color: #dc3545;
+}
+.notifyButton {
+  background-color: #ffc107;
+  margin-top: 20px;
+}
