@@ -1,0 +1,56 @@
+/* Navbar Styles */
+.navbar {
+    transition: all 0.3s ease;
+  }
+  
+  /* Navbar background color */
+  .navbar-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  /* Navbar links */
+  .navbar-link {
+    color: #343a40 !important;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    color: #007bff !important;
+    transform: translateY(-2px);
+  }
+  
+  /* Navbar toggler icon */
+  .navbar-toggler {
+    border-color: #007bff;
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #007bff;
+  }
+  
+  /* Navbar hover effect */
+  .navbar-item {
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar-item:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+  }
+  
+  /* Active link highlight */
+  .navbar-link.active {
+    color: #007bff !important;
+    font-weight: bold;
+    border-bottom: 2px solid #007bff;
+  }
+  
+  /* Mobile Navbar styling */
+  @media (max-width: 768px) {
+    .navbar-collapse {
+      background-color: #f8f9fa;
+    }
+  }
+  
