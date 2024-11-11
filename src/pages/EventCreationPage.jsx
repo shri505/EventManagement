@@ -26,23 +26,52 @@ const EventCreationPage = () => {
     onValue(eventsRef, (snapshot) => {
       const eventsData = snapshot.val();
       if (eventsData) {
-        const allEvents = Object.keys(eventsData).map(key => ({ id: key, ...eventsData[key] }));
+        const allEvents = Object.keys(eventsData).map(key => ({
+          id: key,
+          ...eventsData[key]
+        }));
+        // Sort all events by timestamp in descending order
+        allEvents.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        
         setEvents(allEvents.filter(event => event.isConfirmed && !event.isCancelled));
         setCancelledEvents(allEvents.filter(event => event.isCancelled));
       }
     });
   }, []);
+  
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData({ ...eventData, [name]: value });
   };
 
+  const validateForm = () => {
+    const { title, date, time, location, description, category, organizerName, contactNumber, peopleAttending } = eventData;
+    if (!title || !date || !time || !location || !description || !category || !organizerName || !contactNumber || !peopleAttending) {
+      alert("Please fill in all required fields.");
+      return false;
+    }
+    if (!/^\d{10}$/.test(contactNumber)) {
+      alert("Please enter a valid 10-digit contact number.");
+      return false;
+    }
+    if (peopleAttending < 1) {
+      alert("Number of people attending should be at least 1.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     const eventsRef = ref(database, 'events');
+    const eventWithTimestamp = { ...eventData, timestamp: new Date().toISOString() };
     try {
-      await push(eventsRef, eventData);
+      await push(eventsRef, eventWithTimestamp);
       alert('Event created successfully');
       setEventData({
         title: '',
@@ -140,51 +169,23 @@ const EventCreationPage = () => {
         <>
           <h2>Confirmed Events</h2>
           <ul>
-          {events.map(event => (
-  <li key={event.id} className={styles.eventCard}>
-    <h3>{event.title}</h3>
-    <p>{event.date} at {event.time}</p>
-    <p>Location: {event.location}</p>
-    <p>{event.description}</p>
-    <p>Category: {event.category}</p>
-    <p>Organizer: {event.organizerName}</p>
-    <p>Contact: {event.contactNumber}</p>
-    <p>
-      People Attending:{" "}
-      {editingEvent && editingEvent.id === event.id ? (
-        <input
-          type="number"
-          value={editingEvent.peopleAttending}
-          onChange={(e) => setEditingEvent({ ...editingEvent, peopleAttending: e.target.value })}
-          className={styles.inputField}
-        />
-      ) : (
-        event.peopleAttending
-      )}
-    </p>
-    
-    {/* Display check-in and check-out times if available */}
-    {event.checkInTime && <p>Check-In Time: {new Date(event.checkInTime).toLocaleString()}</p>}
-    {event.checkOutTime && <p>Check-Out Time: {new Date(event.checkOutTime).toLocaleString()}</p>}
-    
-    {editingEvent && editingEvent.id === event.id ? (
-      <button onClick={handleSaveAttendees} className={styles.saveButton}>Save</button>
-    ) : (
-      <button onClick={() => handleEditAttendees(event)} className={styles.editButton}>Edit Attendees</button>
-    )}
-    
-    {!event.checkInTime && (
-      <button onClick={() => handleCheckIn(event.id)} className={styles.checkInButton}>Check-In</button>
-    )}
-    {event.checkInTime && !event.checkOutTime && (
-      <button onClick={() => handleCheckOut(event.id)} className={styles.checkOutButton}>Check-Out</button>
-    )}
-    {!event.checkInTime && !event.checkOutTime && (
-      <button onClick={() => handleCancelEvent(event.id)} className={styles.cancelButton}>Cancel Event</button>
-    )}
-  </li>
-))}
-
+            {events.map(event => (
+              <li key={event.id} className={styles.eventCard}>
+                <h3>{event.title}</h3>
+                <p>{event.date} at {event.time}</p>
+                <p>Location: {event.location}</p>
+                <p>{event.description}</p>
+                <p>Category: {event.category}</p>
+                <p>Organizer: {event.organizerName}</p>
+                <p>Contact: {event.contactNumber}</p>
+                <p>People Attending: {event.peopleAttending}</p>
+                {event.checkInTime && <p>Check-In Time: {new Date(event.checkInTime).toLocaleString()}</p>}
+                {event.checkOutTime && <p>Check-Out Time: {new Date(event.checkOutTime).toLocaleString()}</p>}
+                {!event.checkInTime && <button onClick={() => handleCheckIn(event.id)} className={styles.checkInButton}>Check-In</button>}
+                {event.checkInTime && !event.checkOutTime && <button onClick={() => handleCheckOut(event.id)} className={styles.checkOutButton}>Check-Out</button>}
+                {!event.checkInTime && !event.checkOutTime && <button onClick={() => handleCancelEvent(event.id)} className={styles.cancelButton}>Cancel Event</button>}
+              </li>
+            ))}
           </ul>
         </>
       ) : (

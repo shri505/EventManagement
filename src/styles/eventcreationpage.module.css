@@ -1,55 +1,138 @@
+/* Basic styling for the form and its elements */
 .formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 20px auto;
   padding: 20px;
-  max-width: 500px;
-  margin: auto;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .inputField, .textareaField, .selectField {
-  width: 100%;
-  margin-bottom: 15px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;
 }
+
+.textareaField {
+  resize: vertical;
+}
+
 .submitButton {
-  width: 100%;
-  padding: 10px;
   background-color: #4CAF50;
   color: white;
+  padding: 12px;
   border: none;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
+
 .submitButton:hover {
   background-color: #45a049;
 }
-.eventCard {
-  background-color: #f0f0f0;
-  padding: 15px;
-  margin: 10px 0;
+
+.viewButton {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px 5px;
 }
-.rsvpButton, .checkInButton, .checkOutButton, .notifyButton {
-  margin: 5px;
+
+.viewButton:hover {
+  background-color: #ddd;
+}
+
+.eventCard {
+  background-color: #fafafa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.eventCard h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.eventCard p {
+  font-size: 16px;
+  color: #555;
+}
+
+.eventCard button {
+  margin-top: 10px;
   padding: 10px;
   border: none;
-  color: white;
+  border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.rsvpButton {
-  background-color: #007BFF;
-}
+
 .checkInButton {
-  background-color: #28a745;
+  background-color: #4CAF50;
+  color: white;
 }
+
+.checkInButton:hover {
+  background-color: #45a049;
+}
+
 .checkOutButton {
-  background-color: #dc3545;
+  background-color: #2196F3;
+  color: white;
 }
-.notifyButton {
-  background-color: #ffc107;
-  margin-top: 20px;
+
+.checkOutButton:hover {
+  background-color: #1976D2;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #e53935;
+}
+
+/* Animation for event list fade-in */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+button:focus {
+  outline: none;
 }
