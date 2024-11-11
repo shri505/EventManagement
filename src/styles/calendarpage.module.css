@@ -1,110 +1,125 @@
-/* Light theme for calendar container */
-.calendarContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.header {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
-}
-
-/* Light theme for big calendar */
-.rbc-calendar {
-  width: 100%;
-  max-width: 1000px;
-  min-width: 300px;
-  background-color: #ffffff;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-/* Toolbar styling for lighter appearance */
-/* Toolbar styling for lighter appearance with smaller size */
-.rbc-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.rbc-toolbar .rbc-btn-group {
-  display: flex;
-  gap: 3px; /* Less space between buttons */
-}
-
-.rbc-toolbar .rbc-btn-group button {
-  padding: 3px 8px; /* Smaller button padding */
-  font-size: 12px; /* Smaller font size */
-  color: #333;
-  background-color: #e0e0e0;
-  border: 1px solid #ccc;
-  border-radius: 3px; /* Slightly smaller border radius */
-  cursor: pointer;
-  line-height: normal;
-  transition: background-color 0.3s ease;
-}
-
-.rbc-toolbar .rbc-btn-group button:hover {
-  background-color: #d0d0d0;
-}
-
-.rbc-toolbar-label {
-  flex-grow: 1;
-  padding: 0 10px;
-  text-align: center;
-}
-
-/* Date cells styling */
-.rbc-month-view .rbc-date-cell {
-  color: #aaa;
-}
-
-.rbc-month-view .rbc-row-bg .rbc-day-bg {
-  border: 1px solid #ddd;
-}
-
-.rbc-month-view .rbc-header {
-  font-weight: bold;
-  color: #333;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-  background-color: #f7f7f7;
-}
-
-/* Event styling */
-.rbc-event {
-  background-color: #2a9df4;
-  color: #fff;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 12px;
-  text-align: center;
-}
-
-.rbc-selected {
-  background-color: #f0f0f0;
-}
-
-/* Highlight current date */
-.rbc-today {
-  background-color: #f7f7f7;
-}
-
-.rbc-off-range-bg {
-  background-color: #f2f2f2;
-}
-
-/* Adjust slot minimum height */
-.rbc-month-row, .rbc-time-view, .rbc-agenda-view {
-  min-height: 60px;
-}
+:global(.rbc-toolbar) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  :global(.rbc-toolbar .rbc-btn-group) {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  
+  :global(.rbc-toolbar .rbc-btn-group button) {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    margin: 0 5px;
+    border: none;
+    background-color: #4d75a1;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  :global(.rbc-toolbar .rbc-btn-group button:hover) {
+    background-color: #0056b3;
+  }
+  
+  :global(.rbc-toolbar button:focus) {
+    outline: none;
+  }
+  
+  :global(.rbc-toolbar button.rbc-active) {
+    background-color: #004080;
+    color: white;
+  }
+  
+  /* Calendar Container */
+  :global(.rbc-calendar) {
+    width: 100%;
+    height: calc(90vh - 100px);
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Highlight current date */
+  :global(.rbc-day-bg.rbc-today) {
+    background-color: #8e8e8e !important;
+  }
+  
+  /* Event Details Styling */
+  .eventDetails {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .eventCard {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .eventCard h3 {
+    font-size: 1.3rem;
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  .eventCard p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  /* Modal Styling */
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modalContent h3 {
+    margin-bottom: 20px;
+  }
+  
+  .modalContent button {
+    margin: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #dbe2e9;
+    color: white;
+  }
+  
+  .modalContent button:hover {
+    background-color: #0056b3;
+  }
+  

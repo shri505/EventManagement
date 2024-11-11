@@ -40,6 +40,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route 
+          path="/event-details"
+          element={
+            <ProtectedRoute>
+              <EventDetailsPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/calendar"
           element={

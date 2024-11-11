@@ -58,6 +58,11 @@ const Navbar = () => {
                   </MDBNavbarLink>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
+                <MDBNavbarLink tag={Link} to="/event-details" className="navbar-link">
+                    Event Details
+                  </MDBNavbarLink>
+                </MDBNavbarItem>
+                <MDBNavbarItem>
                   <MDBNavbarLink tag={Link} to="/calendar" className="navbar-link">
                     Calendar
                   </MDBNavbarLink>
