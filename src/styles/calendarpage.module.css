@@ -1,22 +1,22 @@
 :global(.rbc-toolbar) {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     background-color: #f9f9f9;
     border-bottom: 1px solid #ddd;
+    gap: 20px;
   }
   
   :global(.rbc-toolbar .rbc-btn-group) {
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
+    gap: 10px;
   }
   
   :global(.rbc-toolbar .rbc-btn-group button) {
-    padding: 5px 10px;
+    padding: 1px 5px;
     font-size: 0.9rem;
-    margin: 0 5px;
     border: none;
     background-color: #4d75a1;
     color: white;
@@ -28,26 +28,45 @@
     background-color: #0056b3;
   }
   
-  :global(.rbc-toolbar button:focus) {
-    outline: none;
-  }
-  
   :global(.rbc-toolbar button.rbc-active) {
     background-color: #004080;
-    color: white;
   }
   
-  /* Calendar Container */
   :global(.rbc-calendar) {
     width: 100%;
-    height: calc(90vh - 100px);
+    height: calc(90vh - 140px);
     max-width: 100%;
     overflow: hidden;
   }
   
-  /* Highlight current date */
-  :global(.rbc-day-bg.rbc-today) {
-    background-color: #8e8e8e !important;
+  /* Year Selector Styling */
+  .yearSelector {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #fafafa;
+    margin-bottom: 10px;
+  }
+  
+  .yearSelector label {
+    margin-right: 8px;
+    font-size: 1rem;
+  }
+  
+  .yearSelector select {
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+  }
+  
+  /* Calendar Header */
+  .header {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
   }
   
   /* Event Details Styling */
@@ -61,6 +80,7 @@
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   }
   
+  /* Event Card */
   .eventCard {
     border: 1px solid #ddd;
     padding: 15px;
@@ -73,13 +93,11 @@
   .eventCard h3 {
     font-size: 1.3rem;
     margin: 5px 0;
-    color: #333;
   }
   
   .eventCard p {
     font-size: 1rem;
     margin: 5px 0;
-    color: #555;
   }
   
   /* Modal Styling */
@@ -105,18 +123,14 @@
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
   }
   
-  .modalContent h3 {
-    margin-bottom: 20px;
-  }
-  
   .modalContent button {
     margin: 5px;
     padding: 10px 15px;
-    cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #dbe2e9;
+    background-color: #4d75a1;
     color: white;
+    cursor: pointer;
   }
   
   .modalContent button:hover {

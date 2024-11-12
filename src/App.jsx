@@ -1,5 +1,4 @@
-// src/App.js
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import EventDetailsPage from './pages/EventDetailsPage';
 import EventCreationPage from './pages/EventCreationPage';
@@ -11,19 +10,18 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
 
-function App() {
+function AppContent() {
   const [user] = useAuthState(auth);
+  const location = useLocation();
 
   return (
-    <Router>
-      {/* Render Navbar only if the user is logged in */}
-      {user && <Navbar />}
+    <>
+      {/* Show Navbar only if user is logged in and not on the login page */}
+      {user && location.pathname !== "/login" && <Navbar />}
+
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/"
-          element={user ? <HomePage /> : <Navigate to="/login" />}
-        />
+        <Route path="/" element={user ? <HomePage /> : <Navigate to="/login" />} />
         <Route
           path="/profile"
           element={
@@ -40,7 +38,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route 
+        <Route
           path="/event-details"
           element={
             <ProtectedRoute>
@@ -57,6 +55,14 @@ function App() {
           }
         />
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

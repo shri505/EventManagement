@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import { database } from "../firebase";
 import { ref, onValue } from "firebase/database";
@@ -14,6 +14,8 @@ const CalendarPage = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [currentDate, setCurrentDate] = useState(new Date()); // New state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,11 +35,10 @@ const CalendarPage = () => {
   }, []);
 
   const handleSelectSlot = ({ start }) => {
-    // Check if the selected date is in the past
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set to start of the day
+    today.setHours(0, 0, 0, 0);
     if (start >= today) {
-      setShowModal(true); // Allow event creation for today or future dates
+      setShowModal(true);
     } else {
       alert("Cannot create events for past dates.");
     }
@@ -56,23 +57,48 @@ const CalendarPage = () => {
     setShowModal(false);
   };
 
+  const handleYearChange = (e) => {
+    setSelectedYear(parseInt(e.target.value, 10));
+    setCurrentDate(new Date(parseInt(e.target.value, 10), 0, 1));
+  };
+
+  const handleNavigate = (date) => {
+    setCurrentDate(date);
+  };
+
   return (
     <div className={styles.calendarContainer}>
       <h1 className={styles.header}>Event Calendar</h1>
+
+      {/* Year Selector */}
+      <div className={styles.yearSelector}>
+        <label htmlFor="year">Select Year: </label>
+        <select id="year" value={selectedYear} onChange={handleYearChange}>
+          {Array.from({ length: 10 }, (_, i) => {
+            const year = new Date().getFullYear() - 5 + i;
+            return (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
       <Calendar
         localizer={localizer}
         events={events}
         selectable
-        defaultDate={new Date()}
+        date={currentDate}
         defaultView="month"
-        views={["month", "week", "day", "agenda"]}
+        views={{ month: true, week: true, day: true, agenda: true }}
         style={{ height: "calc(90vh - 100px)", width: "90%" }}
         onSelectEvent={handleSelectEvent}
         onSelectSlot={handleSelectSlot}
+        onNavigate={handleNavigate} // Add navigation handler
         className={styles.rbcCalendar}
       />
 
-      {/* Conditionally render selected event details */}
       {selectedEvent && (
         <div className={styles.eventDetails}>
           <h2>Event Details</h2>
@@ -85,7 +111,6 @@ const CalendarPage = () => {
         </div>
       )}
 
-      {/* Modal for creating a new event */}
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
