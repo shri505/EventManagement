@@ -1,138 +1,132 @@
-/* Basic styling for the form and its elements */
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* General styles */
+html {
+  height: 100%;
+  margin: 0;
 }
 
-.inputField, .textareaField, .selectField {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.textareaField {
-  resize: vertical;
-}
-
-.submitButton {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submitButton:hover {
-  background-color: #45a049;
-}
-
-.viewButton {
-  background-color: #f1f1f1;
-  color: #333;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 10px 5px;
-}
-
-.viewButton:hover {
-  background-color: #ddd;
-}
-
-.eventCard {
-  background-color: #fafafa;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  margin: 10px 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  animation: fadeIn 0.5s forwards;
-}
-
-.eventCard h3 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-}
-
-.eventCard p {
-  font-size: 16px;
-  color: #555;
-}
-
-.eventCard button {
-  margin-top: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.checkInButton {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.checkInButton:hover {
-  background-color: #45a049;
-}
-
-.checkOutButton {
-  background-color: #2196F3;
-  color: white;
-}
-
-.checkOutButton:hover {
-  background-color: #1976D2;
-}
-
-.cancelButton {
-  background-color: #f44336;
-  color: white;
-}
-
-.cancelButton:hover {
-  background-color: #e53935;
-}
-
-/* Animation for event list fade-in */
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-ul {
-  list-style-type: none;
+body {
+  font-family: Arial, sans-serif;
+  background: #333;
   padding: 0;
   margin: 0;
 }
 
-button:focus {
+.formContainer {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  width: 600px;
+  padding: 50px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  z-index: 10; /* Make sure form appears on top of other elements */
+}
+
+h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.inputField, .textareaField, .selectField {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #fff;
   outline: none;
+  background: transparent;
+}
+
+.inputField:focus ~ label, 
+.textareaField:focus ~ label,
+.selectField:focus ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.submitButton, .viewButton, .checkInButton, .checkOutButton, .cancelButton {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 20px;
+  letter-spacing: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.submitButton:hover,
+.viewButton:hover,
+.checkInButton:hover,
+.checkOutButton:hover,
+.cancelButton:hover {
+  color: #fff;
+  background: #03e9f4;
+}
+
+/* Event Card Styling */
+.eventCardContainer {
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adds space between event cards */
+}
+
+.eventCard {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+
+.eventCard h3 {
+  margin-bottom: 10px;
+  color: #03e9f4;
+}
+
+.eventCard p {
+  margin: 5px 0;
+}
+
+button {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #03e9f4;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Styling for mobile responsiveness */
+@media (max-width: 768px) {
+  .formContainer {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .eventCard {
+    padding: 15px;
+  }
+
+  .submitButton, .viewButton, .checkInButton, .checkOutButton, .cancelButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }

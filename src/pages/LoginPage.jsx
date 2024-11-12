@@ -1,17 +1,16 @@
-// Import necessary hooks and services
-import React, { useState } from 'react'; 
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { login, signup, resetPassword } from '../services/Auth'; // Import resetPassword from Auth service
 import '../styles/loginpage.css';  // Import the CSS file for styling
 
 const LoginPage = () => {
-  const [email, setEmail] = useState(''); 
-  const [password, setPassword] = useState(''); 
-  const [confirmPassword, setConfirmPassword] = useState(''); 
-  const [isSignup, setIsSignup] = useState(false); 
-  const [error, setError] = useState(''); 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSignup, setIsSignup] = useState(false);
+  const [error, setError] = useState('');
   const [showResetPassword, setShowResetPassword] = useState(false); // State for displaying reset password form
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const validateForm = () => {
     if (!email || !password || (isSignup && !confirmPassword)) {
@@ -39,7 +38,7 @@ const LoginPage = () => {
       }
       navigate('/');
     } catch (error) {
-      setError(error.message); 
+      setError(error.message);
     }
   };
 
@@ -60,27 +59,39 @@ const LoginPage = () => {
       
       {error && <p className="error-message">{error}</p>}
       
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <div className="user-box">
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label>Email</label>
+      </div>
       
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      
-      {isSignup && (
+      <div className="user-box">
         <input
           type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
+        <label>Password</label>
+      </div>
+      
+      {isSignup && (
+        <div className="user-box">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <label>Confirm Password</label>
+        </div>
       )}
 
       {/* Button to trigger login/signup */}
