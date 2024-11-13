@@ -1,64 +1,102 @@
-/* Customizing the toolbar layout */
-.rbc-toolbar {
-  width: 100%; /* Set the toolbar width */
-  height: 25%; /* Set the toolbar height */
+/* Event Details Page Styles */
+body{
+  font-family: Arial, sans-serif;
+
+}
+.event-details-page {
+  color: #fff;
+  background-color: #333;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+
+.search-bar {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line if they overflow */
-  justify-content: space-between; /* Ensure space between elements */
-  padding: 15px 5px 20px; /* Adjust padding for the toolbar */
-  box-sizing: border-box; /* Include padding in width/height calculation */
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: #37525b;
 }
 
-/* Style the toolbar labels (like "Today", "Month", etc.) */
-.rbc-toolbar .rbc-btn-group {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap; /* Allow the label buttons to wrap if needed */
-  margin-bottom: 5px; /* Space between the label and buttons */
-}
-.rbc-toolbar .rbc-toolbar-label {
-  font-size: medium;
-}
-
-/* Style the individual buttons */
-.rbc-toolbar button {
-  padding: 5px 10px;
-  font-size: 0.9rem;
-  margin: 0 5px; /* Space between buttons */
-}
-
-/* Prevent overflow of toolbar elements */
-.rbc-toolbar .rbc-btn-group, .rbc-toolbar button {
-  white-space: nowrap; /* Prevent text from wrapping inside buttons */
-}
-
-/* Make the calendar fit the screen */
-.rbc-calendar {
+.search-input {
   width: 100%;
-  height: calc(90vh - 100px); /* Adjust this depending on your header size */
-  max-width: 100%;
-  overflow: hidden; /* Prevent horizontal scrolling */
-}
-
-/* Event details section styles */
-.eventDetails {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 800px;
-}
-
-.eventCard {
-  border: 1px solid #ddd;
+  max-width: 1600px;
   padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  color: #fff;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.view-button {
+  font-style:Arial,sans-serif important!;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #03e9f4;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.view-button:hover {
+  background: #03e9f4;
+  color: #fff;
+}
+
+/* Event Card Styling */
+.event-card {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+}
+
+.event-card h3 {
+  color: #03e9f4;
   margin-bottom: 10px;
 }
 
-.eventCard h3 {
-  font-size: 1.2rem;
+.event-card p {
   margin: 5px 0;
 }
 
-.eventCard p {
-  font-size: 1rem;
-  margin: 5px 0;
+.attendee-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  margin-bottom: 10px;
 }
+
+button, .save-button, .edit-attendee-button, .check-in-button, .check-out-button, .cancel-button {
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #03e9f4;
+  color: #03e9f4;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+button:hover, .save-button:hover, .edit-attendee-button:hover, .check-in-button:hover, .check-out-button:hover, .cancel-button:hover {
+  background: #03e9f4;
+  color: #fff;
+}
+
+

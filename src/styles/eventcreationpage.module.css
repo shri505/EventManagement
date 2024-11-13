@@ -13,15 +13,17 @@ body {
 
 .formContainer {
   position: absolute;
-  top: 80%;
+  top: 65%;
+  
   left: 50%;
   width: 600px;
   padding: 50px;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 15px 25px rgba(116, 109, 109, 0.6);
   border-radius: 10px;
+
   z-index: 10; /* Make sure form appears on top of other elements */
 }
 
@@ -36,13 +38,15 @@ h2 {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
-  color: #fff;
+  color: rgb(103 98 91);
   margin-bottom: 20px;
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
   background: transparent;
 }
+
+
 
 .inputField:focus ~ label, 
 .textareaField:focus ~ label,

@@ -1,101 +1,195 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import moment from 'moment';
+import { ref, onValue, update } from 'firebase/database';
 import { database } from '../firebase';
-import { ref, onValue } from 'firebase/database';
 import '../styles/eventDetailsPage.css';
 
 const EventDetailsPage = () => {
-  const { eventTitle, eventDate } = useParams();
-  const [event, setEvent] = useState(null);
-  const [allEvents, setAllEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
-  const [filter, setFilter] = useState('upcoming');
-  const [showDetails, setShowDetails] = useState(null); // Track the event to show details for
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [pastEvents, setPastEvents] = useState([]);
+  const [cancelledEvents, setCancelledEvents] = useState([]);
+  const [confirmedEvents, setConfirmedEvents] = useState([]);
+  const [view, setView] = useState("upcoming");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [editingEventId, setEditingEventId] = useState(null);
+  const [newAttendeeCount, setNewAttendeeCount] = useState("");
 
   useEffect(() => {
     const eventsRef = ref(database, 'events');
     onValue(eventsRef, (snapshot) => {
       const eventsData = snapshot.val();
       if (eventsData) {
-        const eventList = Object.keys(eventsData).map((key) => ({
-          ...eventsData[key],
-          start: new Date(eventsData[key].date),
+        const allEvents = Object.keys(eventsData).map(key => ({
+          id: key,
+          ...eventsData[key]
         }));
-        setAllEvents(eventList);
+        
+        const sortedEvents = allEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+        const today = new Date();
 
-        const selectedEvent = eventList.find(
-          (e) =>
-            e.title === eventTitle &&
-            moment(e.start).format('YYYY-MM-DD') === eventDate
-        );
-        setEvent(selectedEvent || null);
+        setUpcomingEvents(sortedEvents.filter(event => event.isConfirmed && !event.isCancelled && new Date(event.date) >= today));
+        setPastEvents(sortedEvents.filter(event => event.isConfirmed && !event.isCancelled && new Date(event.date) < today));
+        setCancelledEvents(sortedEvents.filter(event => event.isCancelled));
+        setConfirmedEvents(sortedEvents.filter(event => event.isConfirmed && !event.isCancelled));
       }
     });
-  }, [eventTitle, eventDate]);
+  }, []);
 
-  useEffect(() => {
-    const now = new Date();
-    if (filter === 'upcoming') {
-      setFilteredEvents(allEvents.filter((event) => new Date(event.start) > now));
-    } else {
-      setFilteredEvents(allEvents.filter((event) => new Date(event.start) <= now));
+  const handleCheckIn = async (eventId) => {
+    const checkInRef = ref(database, `events/${eventId}`);
+    const checkInTime = new Date().toISOString();
+    try {
+      await update(checkInRef, { checkInTime });
+      alert('Checked in successfully!');
+      setUpcomingEvents(prevEvents =>
+        prevEvents.map(event => event.id === eventId ? { ...event, checkInTime } : event)
+      );
+    } catch (error) {
+      alert('Failed to check-in: ' + error.message);
     }
-  }, [filter, allEvents]);
-
-  const handleShowDetails = (title, date) => {
-    const selectedEvent = allEvents.find(
-      (e) =>
-        e.title === title &&
-        moment(e.start).format('YYYY-MM-DD') === date
-    );
-    setShowDetails(selectedEvent);
   };
 
-  return (
-    <div className="event-details-page">
-      {event && (
-        <div>
-          <h1>{event.title}</h1>
-          <p>Date: {moment(event.start).format('MMMM DD, YYYY')}</p>
+  const handleCheckOut = async (eventId) => {
+    const checkOutRef = ref(database, `events/${eventId}`);
+    const checkOutTime = new Date().toISOString();
+    try {
+      await update(checkOutRef, { checkOutTime });
+      alert('Checked out successfully!');
+    } catch (error) {
+      alert('Failed to check-out: ' + error.message);
+    }
+  };
+
+  const handleCancelEvent = async (eventId) => {
+    const eventRef = ref(database, `events/${eventId}`);
+    try {
+      await update(eventRef, { isCancelled: true });
+      alert('Event canceled!');
+      setUpcomingEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
+    } catch (error) {
+      alert('Failed to cancel event: ' + error.message);
+    }
+  };
+
+  const handleAttendeeEdit = (eventId, currentCount) => {
+    setEditingEventId(eventId);
+    setNewAttendeeCount(currentCount);
+  };
+
+  const handleSaveAttendeeCount = async (eventId) => {
+    const eventRef = ref(database, `events/${eventId}`);
+    try {
+      await update(eventRef, { peopleAttending: parseInt(newAttendeeCount, 10) });
+      alert('Attendee count updated successfully!');
+      setEditingEventId(null);
+      setUpcomingEvents(prevEvents =>
+        prevEvents.map(event => event.id === eventId ? { ...event, peopleAttending: parseInt(newAttendeeCount, 10) } : event)
+      );
+    } catch (error) {
+      alert('Failed to update attendee count: ' + error.message);
+    }
+  };
+
+  const filteredEvents = (events) => {
+    return events.filter(event => 
+      event.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const renderEvents = (events) => (
+    <ul>
+      {filteredEvents(events).map(event => (
+        <li key={event.id} className="event-card">
+          <h3>{event.title}</h3>
+          <p>{event.date} at {event.time}</p>
           <p>Location: {event.location}</p>
-          <p>Description: {event.description}</p>
+          <p>{event.description}</p>
           <p>Category: {event.category}</p>
           <p>Organizer: {event.organizerName}</p>
           <p>Contact: {event.contactNumber}</p>
-          <p>Attendees: {event.peopleAttending}</p>
+          <p>People Attending: {event.peopleAttending}</p>
+          
+          {editingEventId === event.id ? (
+            <div>
+              <input 
+                type="number" 
+                value={newAttendeeCount} 
+                onChange={(e) => setNewAttendeeCount(e.target.value)}
+                className="attendee-input"
+              />
+              <button onClick={() => handleSaveAttendeeCount(event.id)} className="save-button">Save</button>
+            </div>
+          ) : (
+            <button onClick={() => handleAttendeeEdit(event.id, event.peopleAttending)} className="edit-attendee-button">
+              Edit Attendee Count
+            </button>
+          )}
+  
+          {event.checkInTime && <p>Check-In Time: {new Date(event.checkInTime).toLocaleString()}</p>}
+          {event.checkOutTime && <p>Check-Out Time: {new Date(event.checkOutTime).toLocaleString()}</p>}
+  
+          {/* Conditionally render buttons based on the view */}
+          {view !== "cancelled" && view !== "past" && (
+            <>
+              {!event.checkInTime && (
+                <button onClick={() => handleCheckIn(event.id)} className="check-in-button">Check-In</button>
+              )}
+              {event.checkInTime && !event.checkOutTime && (
+                <button onClick={() => handleCheckOut(event.id)} className="check-out-button">Check-Out</button>
+              )}
+              {!event.checkInTime && (
+                <button onClick={() => handleCancelEvent(event.id)} className="cancel-button">Cancel Event</button>
+              )}
+            </>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+  
+
+  return (
+    <div className="event-details-page">
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search events by name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </div>
+
+      <div className="view-toggle">
+        <button onClick={() => setView("upcoming")} className="view-button">Upcoming Events</button>
+        <button onClick={() => setView("past")} className="view-button">Past Events</button>
+        <button onClick={() => setView("confirmed")} className="view-button">Confirmed Events</button>
+        <button onClick={() => setView("cancelled")} className="view-button">Cancelled Events</button>
+      </div>
+
+      {view === "upcoming" && (
+        <div >
+          <h3>Upcoming Events</h3>
+          {renderEvents(upcomingEvents)}
         </div>
       )}
-
-      <div className="filter-section">
-        <button onClick={() => setFilter('upcoming')}>Upcoming Events</button>
-        <button onClick={() => setFilter('past')}>Past Events</button>
-      </div>
-
-      <div className="event-list">
-        <h2>{filter === 'upcoming' ? 'Upcoming Events' : 'Past Events'}</h2>
-        <ul>
-          {filteredEvents.map((e) => (
-            <li key={e.title + e.date}>
-              <h3>{e.title}</h3>
-              <p>Date: {moment(e.start).format('MMMM DD, YYYY')}</p>
-              <button onClick={() => handleShowDetails(e.title, moment(e.start).format('YYYY-MM-DD'))}>
-                More Details
-              </button>
-              {showDetails && showDetails.title === e.title && showDetails.date === e.date && (
-                <div className="event-details">
-                  <p>Location: {showDetails.location}</p>
-                  <p>Description: {showDetails.description}</p>
-                  <p>Category: {showDetails.category}</p>
-                  <p>Organizer: {showDetails.organizerName}</p>
-                  <p>Contact: {showDetails.contactNumber}</p>
-                  <p>Attendees: {showDetails.peopleAttending}</p>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {view === "past" && (
+        <div >
+          <h3>Past Events</h3>
+          {renderEvents(pastEvents)}
+        </div>
+      )}
+      {view === "confirmed" && (
+        <div >
+          <h3>Confirmed Events</h3>
+          {renderEvents(confirmedEvents)}
+        </div>
+      )}
+      {view === "cancelled" && (
+        <div >
+          <h3>Cancelled Events</h3>
+          {renderEvents(cancelledEvents)}
+        </div>
+      )}
     </div>
   );
 };
