@@ -96,100 +96,69 @@ const EventDetailsPage = () => {
   };
 
   const renderEvents = (events) => (
-    <ul>
+    <div className="event-card-container">
       {filteredEvents(events).map(event => (
-        <li key={event.id} className="event-card">
-          <h3>{event.title}</h3>
-          <p>{event.date} at {event.time}</p>
-          <p>Location: {event.location}</p>
-          <p>{event.description}</p>
-          <p>Category: {event.category}</p>
-          <p>Organizer: {event.organizerName}</p>
-          <p>Contact: {event.contactNumber}</p>
-          <p>People Attending: {event.peopleAttending}</p>
-          
-          {editingEventId === event.id ? (
-            <div>
-              <input 
-                type="number" 
-                value={newAttendeeCount} 
-                onChange={(e) => setNewAttendeeCount(e.target.value)}
-                className="attendee-input"
-              />
-              <button onClick={() => handleSaveAttendeeCount(event.id)} className="save-button">Save</button>
-            </div>
-          ) : (
-            <button onClick={() => handleAttendeeEdit(event.id, event.peopleAttending)} className="edit-attendee-button">
-              Edit Attendee Count
+        <div key={event.id} className="event-card">
+          <div className="event-info">
+            <h3>{event.title}</h3>
+            <p>{event.date} at {event.time}</p>
+            <p>Location: {event.location}</p>
+            <p>{event.description}</p>
+            <p>Category: {event.category}</p>
+            <p>Organizer: {event.organizerName}</p>
+            <p>Contact: {event.contactNumber}</p>
+            <p>People Attending: {event.peopleAttending}</p>
+            {event.id === editingEventId ? (
+              <div>
+                <input
+                  type="number"
+                  className="attendee-input"
+                  value={newAttendeeCount}
+                  onChange={(e) => setNewAttendeeCount(e.target.value)}
+                />
+                <button className="save-button" onClick={() => handleSaveAttendeeCount(event.id)}>
+                  Save
+                </button>
+              </div>
+            ) : (
+              <button className="edit-attendee-button" onClick={() => handleAttendeeEdit(event.id, event.peopleAttending)}>
+                Edit Attendees
+              </button>
+            )}
+            <button className="check-in-button" onClick={() => handleCheckIn(event.id)}>
+              Check In
             </button>
-          )}
-  
-          {event.checkInTime && <p>Check-In Time: {new Date(event.checkInTime).toLocaleString()}</p>}
-          {event.checkOutTime && <p>Check-Out Time: {new Date(event.checkOutTime).toLocaleString()}</p>}
-  
-          {/* Conditionally render buttons based on the view */}
-          {view !== "cancelled" && view !== "past" && (
-            <>
-              {!event.checkInTime && (
-                <button onClick={() => handleCheckIn(event.id)} className="check-in-button">Check-In</button>
-              )}
-              {event.checkInTime && !event.checkOutTime && (
-                <button onClick={() => handleCheckOut(event.id)} className="check-out-button">Check-Out</button>
-              )}
-              {!event.checkInTime && (
-                <button onClick={() => handleCancelEvent(event.id)} className="cancel-button">Cancel Event</button>
-              )}
-            </>
-          )}
-        </li>
+            <button className="check-out-button" onClick={() => handleCheckOut(event.id)}>
+              Check Out
+            </button>
+            <button className="cancel-button" onClick={() => handleCancelEvent(event.id)}>
+              Cancel Event
+            </button>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   );
-  
 
   return (
     <div className="event-details-page">
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search events by name..."
+          className="search-input"
+          placeholder="Search events..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
         />
       </div>
-
       <div className="view-toggle">
-        <button onClick={() => setView("upcoming")} className="view-button">Upcoming Events</button>
-        <button onClick={() => setView("past")} className="view-button">Past Events</button>
-        <button onClick={() => setView("confirmed")} className="view-button">Confirmed Events</button>
-        <button onClick={() => setView("cancelled")} className="view-button">Cancelled Events</button>
+        <button className="view-button" onClick={() => setView("upcoming")}>Upcoming Events</button>
+        <button className="view-button" onClick={() => setView("past")}>Past Events</button>
+        <button className="view-button" onClick={() => setView("cancelled")}>Cancelled Events</button>
       </div>
-
-      {view === "upcoming" && (
-        <div >
-          <h3>Upcoming Events</h3>
-          {renderEvents(upcomingEvents)}
-        </div>
-      )}
-      {view === "past" && (
-        <div >
-          <h3>Past Events</h3>
-          {renderEvents(pastEvents)}
-        </div>
-      )}
-      {view === "confirmed" && (
-        <div >
-          <h3>Confirmed Events</h3>
-          {renderEvents(confirmedEvents)}
-        </div>
-      )}
-      {view === "cancelled" && (
-        <div >
-          <h3>Cancelled Events</h3>
-          {renderEvents(cancelledEvents)}
-        </div>
-      )}
+      {view === "upcoming" && renderEvents(upcomingEvents)}
+      {view === "past" && renderEvents(pastEvents)}
+      {view === "cancelled" && renderEvents(cancelledEvents)}
     </div>
   );
 };
