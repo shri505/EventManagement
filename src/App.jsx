@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import HomePage from './pages/HomePage';
 import EventDetailsPage from './pages/EventDetailsPage';
 import EventCreationPage from './pages/EventCreationPage';
-import UserProfilePage from './pages/UserProfilePage';
 import LoginPage from './pages/LoginPage';
 import CalendarPage from './pages/CalendarPage';
+import AboutPage from './pages/AboutPage';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -23,10 +23,10 @@ function AppContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={user ? <HomePage /> : <Navigate to="/login" />} />
         <Route
-          path="/profile"
+          path="/about"
           element={
             <ProtectedRoute>
-              <UserProfilePage />
+              <AboutPage />
             </ProtectedRoute>
           }
         />
