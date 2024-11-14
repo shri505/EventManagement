@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { database } from '../firebase';
-import { ref, push, update, onValue } from 'firebase/database';
+import { ref, push, onValue } from 'firebase/database';
 import styles from '../styles/eventcreationpage.module.css';
 
 const EventCreationPage = () => {
@@ -18,12 +18,11 @@ const EventCreationPage = () => {
   });
 
   useEffect(() => {
-    // You can leave this effect to fetch events in the future if needed
     const eventsRef = ref(database, 'events');
     onValue(eventsRef, (snapshot) => {
       const eventsData = snapshot.val();
       if (eventsData) {
-        // Additional logic can be added here if needed in the future
+        // Additional logic can be added here if needed
       }
     });
   }, []);
@@ -77,8 +76,7 @@ const EventCreationPage = () => {
   };
 
   return (
-    <div>
-      {/* Event Creation Form */}
+    <div className={styles.eventCreationPage}>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <input type="text" name="title" placeholder="Event Title" value={eventData.title} onChange={handleChange} className={styles.inputField} required />
         <input type="date" name="date" placeholder="Event Date" value={eventData.date} onChange={handleChange} className={styles.inputField} required />

@@ -6,25 +6,29 @@ html {
 
 body {
   font-family: Arial, sans-serif;
-  background: #333;
-  padding: 0;
   margin: 0;
 }
 
+/* Event Creation Page-specific styling */
+.eventCreationPage {
+  background: url('F:\ReactTask\EventManagement\src\assets\concerthall.jpg') no-repeat center center fixed; /* Replace with your image path */
+  background-size: cover; /* Ensures the image covers the entire background */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .formContainer {
-  position: absolute;
-  top: 65%;
-  
-  left: 50%;
+  position: relative;
   width: 600px;
-  padding: 50px;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  background: #000; /* Dark overlay for better text contrast */
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(116, 109, 109, 0.6);
   border-radius: 10px;
-
   z-index: 10; /* Make sure form appears on top of other elements */
+  
 }
 
 h2 {
@@ -46,8 +50,7 @@ h2 {
   background: transparent;
 }
 
-
-
+/* Placeholder label effects */
 .inputField:focus ~ label, 
 .textareaField:focus ~ label,
 .selectField:focus ~ label {
@@ -57,7 +60,8 @@ h2 {
   font-size: 12px;
 }
 
-.submitButton, .viewButton, .checkInButton, .checkOutButton, .cancelButton {
+/* Button Styles */
+.submitButton {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -74,62 +78,19 @@ h2 {
   cursor: pointer;
 }
 
-.submitButton:hover,
-.viewButton:hover,
-.checkInButton:hover,
-.checkOutButton:hover,
-.cancelButton:hover {
+.submitButton:hover {
   color: #fff;
   background: #03e9f4;
 }
 
-/* Event Card Styling */
-.eventCardContainer {
-  margin-top: 20px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Adds space between event cards */
-}
-
-.eventCard {
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-  color: #fff;
-}
-
-.eventCard h3 {
-  margin-bottom: 10px;
-  color: #03e9f4;
-}
-
-.eventCard p {
-  margin: 5px 0;
-}
-
-button {
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #03e9f4;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-/* Styling for mobile responsiveness */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .formContainer {
     width: 90%;
     padding: 20px;
   }
 
-  .eventCard {
-    padding: 15px;
-  }
-
-  .submitButton, .viewButton, .checkInButton, .checkOutButton, .cancelButton {
+  .submitButton {
     font-size: 14px;
     padding: 8px 16px;
   }

@@ -8,7 +8,6 @@ const AboutPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Feedback submitted!\nEmail: ${email}\nMessage: ${message}\nRating: ${rating}`);
     setEmail('');
     setMessage('');
     setRating(0);
@@ -76,8 +75,8 @@ const AboutPage = () => {
         </form>
       </section>
       <section className="contact-info">
-        <h2>Contact Us</h2>
-        <p>Email: <a href="mailto:info@yourcompany.com">info@yourcompany.com</a></p>
+        <h5>Contact Us</h5>
+        <p>Email: <a href="mailto:info@yourcompany.com">shrikantdshahapure@gmail.com</a></p>
       </section>
     </div>
   );

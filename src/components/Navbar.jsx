@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <MDBNavbar expand='lg' light bgColor='light' className="navbar">
       <MDBContainer fluid>
-        {/* <MDBNavbarBrand href='/'>Event Manager</MDBNavbarBrand> */}
+        <MDBNavbarBrand>EventManager</MDBNavbarBrand>
 
         <MDBNavbarToggler
           aria-controls='navbarSupportedContent'
