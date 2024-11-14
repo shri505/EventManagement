@@ -1,0 +1,64 @@
+/* Customizing the toolbar layout */
+.rbc-toolbar {
+  width: 100%; /* Set the toolbar width */
+  height: 25%; /* Set the toolbar height */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line if they overflow */
+  justify-content: space-between; /* Ensure space between elements */
+  padding: 15px 5px 20px; /* Adjust padding for the toolbar */
+  box-sizing: border-box; /* Include padding in width/height calculation */
+}
+
+/* Style the toolbar labels (like "Today", "Month", etc.) */
+.rbc-toolbar .rbc-btn-group {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap; /* Allow the label buttons to wrap if needed */
+  margin-bottom: 5px; /* Space between the label and buttons */
+}
+.rbc-toolbar .rbc-toolbar-label {
+  font-size: medium;
+}
+
+/* Style the individual buttons */
+.rbc-toolbar button {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  margin: 0 5px; /* Space between buttons */
+}
+
+/* Prevent overflow of toolbar elements */
+.rbc-toolbar .rbc-btn-group, .rbc-toolbar button {
+  white-space: nowrap; /* Prevent text from wrapping inside buttons */
+}
+
+/* Make the calendar fit the screen */
+.rbc-calendar {
+  width: 100%;
+  height: calc(90vh - 100px); /* Adjust this depending on your header size */
+  max-width: 100%;
+  overflow: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Event details section styles */
+.eventDetails {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.eventCard {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.eventCard h3 {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+.eventCard p {
+  font-size: 1rem;
+  margin: 5px 0;
+}

@@ -1,0 +1,139 @@
+:global(.rbc-toolbar) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    gap: 20px;
+  }
+  
+  :global(.rbc-toolbar .rbc-btn-group) {
+    display: flex;
+    gap: 10px;
+  }
+  
+  :global(.rbc-toolbar .rbc-btn-group button) {
+    padding: 1px 5px;
+    font-size: 0.9rem;
+    border: none;
+    background-color: #4d75a1;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  :global(.rbc-toolbar .rbc-btn-group button:hover) {
+    background-color: #0056b3;
+  }
+  
+  :global(.rbc-toolbar button.rbc-active) {
+    background-color: #004080;
+  }
+  
+  :global(.rbc-calendar) {
+    width: 100%;
+    height: calc(90vh - 140px);
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Year Selector Styling */
+  .yearSelector {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #fafafa;
+    margin-bottom: 10px;
+  }
+  
+  .yearSelector label {
+    margin-right: 8px;
+    font-size: 1rem;
+  }
+  
+  .yearSelector select {
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+  }
+  
+  /* Calendar Header */
+  .header {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Event Details Styling */
+  .eventDetails {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Event Card */
+  .eventCard {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .eventCard h3 {
+    font-size: 1.3rem;
+    margin: 5px 0;
+  }
+  
+  .eventCard p {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  /* Modal Styling */
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modalContent button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4d75a1;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .modalContent button:hover {
+    background-color: #0056b3;
+  }
+  
