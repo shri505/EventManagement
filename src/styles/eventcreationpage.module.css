@@ -1,39 +1,36 @@
 /* General styles */
-html {
+html, body {
   height: 100%;
   margin: 0;
-}
-
-body {
   font-family: Arial, sans-serif;
-  margin: 0;
 }
 
 /* Event Creation Page-specific styling */
 .eventCreationPage {
-  background: url('F:\ReactTask\EventManagement\src\assets\concerthall.jpg') no-repeat center center fixed; /* Replace with your image path */
-  background-size: cover; /* Ensures the image covers the entire background */
+  background: url('F:/ReactTask/EventManagement/src/assets/concerthall.jpg') no-repeat center center fixed;
+  background-size: cover;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .formContainer {
   position: relative;
-  width: 600px;
-  padding: 30px;
-  background: #000; /* Dark overlay for better text contrast */
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background:#000;
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(116, 109, 109, 0.6);
   border-radius: 10px;
-  z-index: 10; /* Make sure form appears on top of other elements */
-  
+  z-index: 10;
 }
 
 h2 {
   margin: 0 0 30px;
-  padding: 0;
   color: #fff;
   text-align: center;
 }
@@ -42,7 +39,7 @@ h2 {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
-  color: rgb(103 98 91);
+  color: rgb(103, 98, 91);
   margin-bottom: 20px;
   border: none;
   border-bottom: 1px solid #fff;
@@ -50,29 +47,15 @@ h2 {
   background: transparent;
 }
 
-/* Placeholder label effects */
-.inputField:focus ~ label, 
-.textareaField:focus ~ label,
-.selectField:focus ~ label {
-  top: -20px;
-  left: 0;
-  color: #03e9f4;
-  font-size: 12px;
-}
-
 /* Button Styles */
 .submitButton {
-  position: relative;
-  display: inline-block;
   padding: 10px 20px;
   color: #03e9f4;
   font-size: 16px;
-  text-decoration: none;
   text-transform: uppercase;
-  overflow: hidden;
   transition: .5s;
   margin-top: 20px;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -83,15 +66,55 @@ h2 {
   background: #03e9f4;
 }
 
-/* Mobile responsiveness */
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .eventCreationPage {
+    padding: 15px;
+    background-position: center center;
+  }
+
+  .formContainer {
+    padding: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .formContainer {
     width: 90%;
     padding: 20px;
   }
 
+  h2 {
+    font-size: 1.5em;
+  }
+
+  .inputField, .textareaField, .selectField {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
   .submitButton {
     font-size: 14px;
     padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    width: 100%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .inputField, .textareaField, .selectField {
+    font-size: 12px;
+  }
+
+  .submitButton {
+    font-size: 12px;
+    padding: 6px 12px;
   }
 }

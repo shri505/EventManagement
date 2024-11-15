@@ -16,7 +16,6 @@ import {
   MDBCollapse,
 } from 'mdb-react-ui-kit';
 
-
 const Navbar = () => {
   const [openBasic, setOpenBasic] = useState(false);
   const [user] = useAuthState(auth);
@@ -33,11 +32,13 @@ const Navbar = () => {
       <MDBContainer fluid>
         <MDBNavbarBrand>EventManager</MDBNavbarBrand>
 
+        {/* Navbar Toggler (Hamburger button) */}
         <MDBNavbarToggler
           aria-controls='navbarSupportedContent'
-          aria-expanded='false'
+          aria-expanded={openBasic ? 'true' : 'false'}
           aria-label='Toggle navigation'
           onClick={() => setOpenBasic(!openBasic)}
+          className="mobile-navbar-toggler"
         >
           <MDBIcon icon='bars' fas />
         </MDBNavbarToggler>
@@ -58,7 +59,7 @@ const Navbar = () => {
                   </MDBNavbarLink>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
-                <MDBNavbarLink tag={Link} to="/event-details" className="navbar-link">
+                  <MDBNavbarLink tag={Link} to="/event-details" className="navbar-link">
                     Event Details
                   </MDBNavbarLink>
                 </MDBNavbarItem>

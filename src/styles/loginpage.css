@@ -6,7 +6,8 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 500px;
+  width: 90%; /* Full width on smaller screens */
+  max-width: 500px; /* Limit width on larger screens */
   padding: 40px;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, .5);
@@ -59,13 +60,13 @@ html {
 
 /* Adjusted button size */
 .login-container button {
-  width: 90%;
-  padding: 6px 12px;  /* Reduced padding for smaller button */
+  width: 100%;
+  padding: 10px;  /* Larger padding for better touch targets */
   color: #fff;
   background-color: #97cdf4;
   border: none;
   border-radius: 5px;
-  font-size: 14px; /* Smaller font size */
+  font-size: 16px; /* Adjust font size for larger buttons */
   margin: 10px 0;
   cursor: pointer;
   transition: 0.3s;
@@ -77,7 +78,7 @@ html {
 
 .toggle-btn {
   width: 100%;
-  padding: 6px 12px; /* Reduced padding for smaller button */
+  padding: 10px; /* Larger padding for better touch targets */
   color: #03e9f4;
   border: none;
   background: transparent;
@@ -113,11 +114,35 @@ html {
 
 .reset-password-form button {
   width: 100%;
-  padding: 6px 12px; /* Reduced padding for smaller button */
+  padding: 10px; /* Larger padding for better touch targets */
   color: #fff;
   background-color: #03e9f4;
   border: none;
   border-radius: 5px;
-  font-size: 14px; /* Smaller font size */
+  font-size: 16px; /* Adjusted font size */
   cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%; /* Reduce width on smaller screens */
+    padding: 20px; /* Smaller padding for compact view */
+  }
+
+  .login-container button, .toggle-btn, .reset-password-form button {
+    padding: 8px; /* Slightly smaller padding on smaller screens */
+    font-size: 14px; /* Adjusted font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container h2 {
+    font-size: 24px; /* Smaller font size for titles on mobile */
+  }
+
+  .login-container button, .toggle-btn, .reset-password-form button {
+    padding: 6px; /* Reduced padding on very small screens */
+    font-size: 12px; /* Adjusted font size for smallest screens */
+  }
 }

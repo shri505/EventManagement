@@ -1,8 +1,11 @@
-/* Event Details Page Styles */
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+/* Event Details Page Styles */
 .event-details-page {
   color: #fff;
   background-color: #333;
@@ -15,12 +18,14 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  padding: 10px;
   background-color: #37525b;
+  box-sizing: border-box;
 }
 
 .search-input {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1200px;
   padding: 10px;
   font-size: 16px;
   border: none;
@@ -30,6 +35,7 @@ body {
   color: #fff;
 }
 
+/* View Toggle */
 .view-toggle {
   display: flex;
   justify-content: center;
@@ -38,7 +44,7 @@ body {
 }
 
 .view-button {
-  font-style: Arial, sans-serif !important;
+  font-family: Arial, sans-serif;
   padding: 10px 20px;
   font-size: 18px;
   color: #03e9f4;
@@ -66,18 +72,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 48%; /* Make each event card take up 48% of the container width, leaving space for 2 cards per row */
+  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+  width: 48%;
   padding: 20px;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-  margin-bottom: 20px;
 }
 
 .event-info {
   flex: 1;
-  margin-left: 80px;
-  
+  margin: 10px;
 }
 
 .event-images {
@@ -85,7 +90,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 20px;
+  margin: 10px;
 }
 
 .event-type-image {
@@ -134,4 +139,73 @@ button, .save-button, .edit-attendee-button, .check-in-button, .check-out-button
 button:hover, .save-button:hover, .edit-attendee-button:hover, .check-in-button:hover, .check-out-button:hover, .cancel-button:hover {
   background: #03e9f4;
   color: #fff;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .event-card {
+    width: 100%; /* Full width for smaller screens */
+    flex-direction: column; /* Stack content vertically */
+    text-align: center; /* Center text for better alignment */
+  }
+
+  .event-info {
+    margin: 10px 0;
+  }
+
+  .event-type-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .view-button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .event-card {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .event-type-image {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-card {
+    padding: 10px;
+  }
+
+  .event-type-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .view-button {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .search-input {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .attendee-input {
+    font-size: 14px;
+  }
 }
