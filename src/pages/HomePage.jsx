@@ -1,7 +1,7 @@
 // src/pages/HomePage.jsx
 
 import React from 'react';
-import '../styles/homePage.css';
+import '../styles/homepage.css';
 import VideoFile from '../assets/eventvideo.mp4';
 import Image1 from '../assets/concerthall.jpg';
 import Image2 from '../assets/conferencehall.jpg';

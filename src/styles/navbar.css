@@ -1,98 +1,150 @@
-/* Navbar Styles */
+/* Import Google Fonts */
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,400&display=swap'); */
 
-.navbar-brand {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
-  font-size: 24px;
-  color: #eb0808 !important;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html {
+    font-size: 72.5%;
+    font-family: 'Roboto', sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* General navbar styles */
 .navbar {
-  background-color: #000 !important;
-  position: sticky; /* Make navbar sticky */
-  top: 0; /* Stick to the top */
-  z-index: 1000; /* Ensure it's above other content */
-  width: 100%; /* Ensure the navbar takes full width */
+    background-color: #000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
 }
 
-.navbar-link {
-  color: #fff !important;
-  font-size: 20px;
-  padding-left: 18px !important;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+.nav-logo {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2.4rem;
+    color: #eb0808;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
 }
 
-.navbar-link:hover {
-  color: #ff0505 !important;
+.nav-logo:hover {
+    color: #eef3f2;
 }
 
-/* Navbar brand hover effect */
-.navbar-brand:hover {
-  color: #eef3f2 !important;
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Navbar toggler icon */
-.navbar-toggler {
-  border-color: #007bff;
-  background-color: #007bff;
+.nav-item {
+    margin-left: 2rem;
 }
 
-.navbar-toggler-icon {
-  background-color: #fff !important;
+.nav-link {
+    color: #fff;
+    font-size: 2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    transition: color 0.3s ease;
 }
 
-/* Mobile-specific navbar toggle button */
-.mobile-navbar-toggler {
-  display: block; /* Show on mobile view */
-  background-color: #007bff; /* Blue background for visibility */
-  color: #fff;
-  border: none;
+.nav-link:hover {
+    color: #ff0505;
 }
 
-/* Navbar Collapse - Full-width on Mobile */
+/* Hamburger menu styles */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 2rem;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 0.3rem 0;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Responsive styles for mobile */
 @media (max-width: 768px) {
-  .navbar-collapse {
-    position: absolute; /* Ensure collapse takes full width */
-    top: 56px; /* Offset for navbar height */
-    left: 0;
-    right: 0;
-    background-color: #000; /* Background color for visibility */
-    padding: 1rem; /* Add padding around the links */
-    z-index: 999; /* Ensure it appears above other elements */
-  }
+    .hamburger {
+      
+      background-color: #ea5a5a!important;
+        display: flex;
+    }
 
-  .navbar-nav {
-    flex-direction: column; /* Stack links vertically */
-    text-align: center;
-  }
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 5.5rem;
+        flex-direction: column;
+        background-color: #000;
+        width: 100%;
+        padding: 2rem 0;
+        border-radius: 0;
+        text-align: center;
+        transition: 0.3s ease;
+        z-index: 999;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
+    }
 
-  .navbar-link {
-    font-size: 14px; /* Reduce font size for readability */
-    text-align: center;
-    color: #fff !important;
-    padding: 8px 0; /* Padding for touch-friendly links */
-  }
-  
-  .navbar-toggler {
-    margin-right: auto; /* Align toggler to the left */
-  }
+    .nav-menu.active {
+        left: 0;
+    }
 
-  .navbar-collapse.show {
-    display: block !important; /* Ensure the collapse is displayed when open */
-  }
+    .nav-item {
+        margin: 1.5rem 0;
+    }
+
+    .nav-link {
+        font-size: 1.8rem;
+        padding: 1rem;
+        color: #fff;
+    }
+
+    .navbar {
+        padding: 1rem;
+    }
 }
 
-/* Mobile screens (max-width: 480px) */
 @media (max-width: 480px) {
-  .navbar-brand {
-    font-size: 18px;
-    margin: 0 auto;
-  }
+    .nav-logo {
+        font-size: 1.8rem;
+    }
 
-  .navbar-link {
-    font-size: 12px;
-    padding: 10px;
-  }
+    .nav-link {
+        font-size: 1.6rem;
+    }
 }

@@ -4,17 +4,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import '../styles/navbar.css';
-import {
-  MDBContainer,
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarToggler,
-  MDBIcon,
-  MDBNavbarNav,
-  MDBNavbarItem,
-  MDBNavbarLink,
-  MDBCollapse,
-} from 'mdb-react-ui-kit';
 
 const Navbar = () => {
   const [openBasic, setOpenBasic] = useState(false);
@@ -27,70 +16,84 @@ const Navbar = () => {
     navigate('/login'); // Redirect to login after logout
   };
 
+  // Mobile menu toggle logic
+  const toggleMobileMenu = () => {
+    setOpenBasic(!openBasic);
+  };
+
+  const closeMobileMenu = () => {
+    setOpenBasic(false);
+  };
+
   return (
-    <MDBNavbar expand='lg' light bgColor='light' className="navbar">
-      <MDBContainer fluid>
-        <MDBNavbarBrand>EventManager</MDBNavbarBrand>
+    <nav className="header">
+      <div className="navbar">
+        <Link to="/" className="nav-logo">
+          EventManager
+        </Link>
 
-        {/* Navbar Toggler (Hamburger button) */}
-        <MDBNavbarToggler
-          aria-controls='navbarSupportedContent'
-          aria-expanded={openBasic ? 'true' : 'false'}
-          aria-label='Toggle navigation'
-          onClick={() => setOpenBasic(!openBasic)}
-          className="mobile-navbar-toggler"
+        <div
+          className={`hamburger ${openBasic ? 'active' : ''}`}
+          onClick={toggleMobileMenu}
         >
-          <MDBIcon icon='bars' fas />
-        </MDBNavbarToggler>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+        </div>
 
-        <MDBCollapse navbar show={openBasic}>
-          <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
-            <MDBNavbarItem>
-              <MDBNavbarLink tag={Link} to="/" aria-current='page' className="navbar-link">
-                Home
-              </MDBNavbarLink>
-            </MDBNavbarItem>
+        <ul className={`nav-menu ${openBasic ? 'active' : ''}`}>
+          <li className="nav-item">
+            <Link to="/" className="nav-link" onClick={closeMobileMenu}>
+              Home
+            </Link>
+          </li>
 
-            {user && (
-              <>
-                <MDBNavbarItem>
-                  <MDBNavbarLink tag={Link} to="/create-event" className="navbar-link">
-                    Create Event
-                  </MDBNavbarLink>
-                </MDBNavbarItem>
-                <MDBNavbarItem>
-                  <MDBNavbarLink tag={Link} to="/event-details" className="navbar-link">
-                    Event Details
-                  </MDBNavbarLink>
-                </MDBNavbarItem>
-                <MDBNavbarItem>
-                  <MDBNavbarLink tag={Link} to="/calendar" className="navbar-link">
-                    Calendar
-                  </MDBNavbarLink>
-                </MDBNavbarItem>
-                <MDBNavbarItem>
-                  <MDBNavbarLink tag={Link} to="/about" className="navbar-link">
-                    About
-                  </MDBNavbarLink>
-                </MDBNavbarItem>
-                <MDBNavbarItem>
-                  <MDBNavbarLink onClick={handleLogout} className="navbar-link">
-                    Logout
-                  </MDBNavbarLink>
-                </MDBNavbarItem>
-              </>
-            )}
-            {!user && (
-              <MDBNavbarItem>
-                <MDBNavbarLink tag={Link} to="/login" className="navbar-link">
-                  Login
-                </MDBNavbarLink>
-              </MDBNavbarItem>
-            )}
-          </MDBNavbarNav>
-        </MDBCollapse>
-      </MDBContainer>
-    </MDBNavbar>
+          {user && (
+            <>
+              <li className="nav-item">
+                <Link to="/create-event" className="nav-link" onClick={closeMobileMenu}>
+                  Create Event
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/event-details" className="nav-link" onClick={closeMobileMenu}>
+                  Event Details
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/calendar" className="nav-link" onClick={closeMobileMenu}>
+                  Calendar
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/about" className="nav-link" onClick={closeMobileMenu}>
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="nav-link"
+                  onClick={() => {
+                    handleLogout();
+                    closeMobileMenu();
+                  }}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+
+          {!user && (
+            <li className="nav-item">
+              <Link to="/login" className="nav-link" onClick={closeMobileMenu}>
+                Login
+              </Link>
+            </li>
+          )}
+        </ul>
+      </div>
+    </nav>
   );
 };
 
